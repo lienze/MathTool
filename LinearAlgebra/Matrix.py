@@ -192,6 +192,48 @@ class Matrix:
         self.mat = [[x0 + y0 for x0, y0 in zip(x, y)] for x, y in zip(matrix_a, matrix_b)]
         return self
 
+    '''
+    功能：获取矩阵行数与列数
+    参数：mat：矩阵变量
+    返回值：[m, n] list类型
+    '''
+    def get_mn(self):
+        m = len(self.mat)
+        n = len(self.mat[0])
+        return [m, n]
+
+    '''
+    功能：设置矩阵ij位置的值
+    参数：i：矩阵中的行，j：矩阵中的列，x:值
+    返回值：成功True或失败False
+    '''
+    def set_ij(self, i, j, x):
+        self.mat[i-1][j-1] = x
+        return True
+
+    '''
+    功能：获取矩阵ij位置的值
+    参数：i：矩阵中的行，j：矩阵中的列
+    返回值：返回ij位置的值
+    '''
+    def get_ij(self, i, j):
+        return self.mat[i-1][j-1]
+
+    '''
+    功能：矩阵转置
+    参数：mat：矩阵变量
+    返回值：转置后的矩阵
+    '''
+    def convert_t(self):
+        f_matrix = Matrix(len(self.mat[0]), len(self.mat))
+        # f_matrix = gen_zero_matrix(len(self.mat[0]), len(self.mat))
+        for j in xrange(1, len(self.mat)+1):
+            for i in xrange(1, len(self.mat[0])+1):
+                f_matrix.set_ij(i, j, self.get_ij(j, i))
+        # show_matrix(f_matrix)
+        return f_matrix
+
+
 if __name__ == "__main__":
 
     '''
