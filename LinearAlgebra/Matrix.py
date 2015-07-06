@@ -121,6 +121,77 @@ def set_matrix_ij(self, i, j, x):
 def get_matrix_ij(self, i, j):
     return self[i-1][j-1]
 
+
+'''
+以下使用class定义矩阵
+'''
+class Matrix:
+    def __init__(self):
+        self.m = 0  # m行
+        self.n = 0  # n列
+        self.mat = []
+
+    # 初始化为m*n矩阵
+    def __init__(self, m, n):
+        self.m = m
+        self.n = n
+        self.mat = []
+        for j in xrange(1, m + 1):
+            xl = []
+            for i in xrange(1, n + 1):
+                xl.append(0)
+            self.mat.append(xl)
+
+    # 初始化为n阶单位矩阵或矩阵
+    def __init__(self, n, b_zero=False):
+        self.mat = []
+        for j in xrange(1, n + 1):
+            xl = []
+            for i in xrange(1, n + 1):
+                if i == j and not b_zero:
+                    xl.append(1)
+                else:
+                    xl.append(0)
+            self.mat.append(xl)
+
+    # 显示矩阵
+    def show_mat(self):
+        for m in self.mat:
+            print m
+
+    '''
+    功能：两个矩阵相加
+    参数：matrix_a:矩阵A matrix_b:矩阵B
+    返回值：相加后的矩阵(list)
+    '''
+    def __add__(self, other):
+        matrix_a = self.mat
+        matrix_b = other.mat
+        # 确保两个矩阵的行数相同
+        if len(matrix_a) != len(matrix_b):
+            return -1
+
+        # 接下来确保矩阵的列数相同
+        na = []
+        for la in matrix_a:
+            if len(la) not in na:
+                na.append(len(la))
+        # print na
+
+        nb = []
+        for lb in matrix_b:
+            if len(lb) not in nb:
+                nb.append(len(lb))
+        # print nb
+
+        if len(na) != len(nb):
+            if len(na) != 1 and len(nb) != 1:
+                return -2
+
+        # 之后进行两矩阵相加
+        self.mat = [[x0 + y0 for x0, y0 in zip(x, y)] for x, y in zip(matrix_a, matrix_b)]
+        return self
+
 if __name__ == "__main__":
 
     '''
