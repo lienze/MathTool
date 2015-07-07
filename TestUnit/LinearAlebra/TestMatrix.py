@@ -32,9 +32,18 @@ def test_mul():
     mat2 = Mt.Matrix(5, True)
     for x in xrange(1, 6):
         mat2.set_ij(x, 1, x)
-    mat2.show_mat()
-    mat3 = mat1 * mat2
+    # mat2.show_mat()
+    mat3 = mat1 * 3
     mat3.show_mat()
+
+def test_ir_mul_k():
+    mat1 = Mt.Matrix(5, True)
+    for x in xrange(1, 6):
+        mat1.set_ij(1, x, x)
+    mat1.show_mat()
+    print ''
+    mat1.ir_mul_k(1, 2)
+    mat1.show_mat()
 
 if __name__ == "__main__":
 
@@ -46,5 +55,8 @@ if __name__ == "__main__":
 
     # 测试矩阵乘法
     test_mul()
+
+    # 测试矩阵第i行乘以k
+    # test_ir_mul_k()
     pass
 
