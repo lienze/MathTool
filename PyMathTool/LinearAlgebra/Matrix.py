@@ -1,129 +1,8 @@
 __author__ = 'lienze'
 # encoding=utf-8
 
-
 '''
-功能：两个矩阵相加
-参数：matrix_a:矩阵A matrix_b:矩阵B
-返回值：相加后的矩阵(list)
-'''
-def add_matrix(matrix_a, matrix_b):
-
-    # 确保两个矩阵的行数相同
-    if len(matrix_a) != len(matrix_b):
-        return -1
-
-    # 接下来确保矩阵的列数相同
-    na = []
-    for la in matrix_a:
-        if len(la) not in na:
-            na.append(len(la))
-    # print na
-
-    nb = []
-    for lb in matrix_b:
-        if len(lb) not in nb:
-            nb.append(len(lb))
-    # print nb
-
-    if len(na) != len(nb):
-        if len(na) != 1 and len(nb) != 1:
-            return -2
-
-    # 之后进行两矩阵相加
-    result = [[x0 + y0 for x0, y0 in zip(x, y)] for x, y in zip(matrix_a, matrix_b)]
-    return result
-
-
-'''
-功能：生成零矩阵
-参数：m：矩阵的行数，n：矩阵的列数
-返回值：零矩阵(m行n列)
-'''
-def gen_zero_matrix(m, n):
-    result = []
-    for j in xrange(1, m + 1):
-        xl = []
-        for i in xrange(1, n + 1):
-            xl.append(0)
-        result.append(xl)
-    return result
-
-
-'''
-功能：生成n阶单位矩阵E
-参数：n：矩阵的列数
-返回值：单位矩阵E
-'''
-def gen_e_matrix(n):
-    result = []
-    for j in xrange(1, n + 1):
-        xl = []
-        for i in xrange(1, n + 1):
-            if i == j:
-                xl.append(1)
-            else:
-                xl.append(0)
-        result.append(xl)
-    return result
-
-
-'''
-功能：控制台打印矩阵
-参数：mat:矩阵变量
-返回值：无
-'''
-def show_matrix(mat):
-    for m in mat:
-        print m
-
-
-'''
-功能：获取矩阵行数与列数
-参数：mat：矩阵变量
-返回值：[m, n] list类型
-'''
-def get_matrix_mn(mat):
-    m = len(mat)
-    n = len(mat[0])
-    return [m, n]
-
-
-'''
-功能：矩阵转置
-参数：mat：矩阵变量
-返回值：转置后的矩阵
-'''
-def convert_matrix(mat):
-    f_matrix = gen_zero_matrix(len(mat[0]), len(mat))
-
-    for j in xrange(1, len(mat)+1):
-        for i in xrange(1, len(mat[0])+1):
-            set_matrix_ij(f_matrix, i, j, get_matrix_ij(mat, j, i))
-    # show_matrix(f_matrix)
-    return f_matrix
-
-'''
-功能：设置矩阵ij位置的值
-参数：i：矩阵中的行，j：矩阵中的列，x:值
-返回值：成功True或失败False
-'''
-def set_matrix_ij(self, i, j, x):
-    self[i-1][j-1] = x
-    return True
-
-
-'''
-功能：获取矩阵ij位置的值
-参数：i：矩阵中的行，j：矩阵中的列
-返回值：返回ij位置的值
-'''
-def get_matrix_ij(self, i, j):
-    return self[i-1][j-1]
-
-
-'''
-以下使用class定义矩阵
+矩阵类
 '''
 class Matrix:
     def __init__(self):
@@ -232,18 +111,63 @@ class Matrix:
         return f_matrix
 
     '''
-    功能：两个矩阵相乘
+    功能：两个矩阵相乘 或 矩阵与整数相乘
     参数：other：另一个同阶矩阵
     返回值：相乘后的矩阵
     '''
     def __mul__(self, other):
         # 首先应该进行安全检查，此处先省略
-        f_matrix = Matrix(len(self.mat[0]), len(self.mat))
-        for j in xrange(1, len(self.mat)+1):
-            for i in xrange(1, len(self.mat[0])+1):
-                f_matrix.set_ij(i, j, self.get_ij(j, i) * other.get_ij(i,j))
-        return f_matrix
+        boo_k = False
+        k = 0
+        ca = 0
+        if isinstance(self, int):
+            # 矩阵与系数相乘的情况
+            k = self
+            ca = 1  # 系数的位置
+            boo_k = True
+        elif isinstance(other, int):
+            # 矩阵与系数相乘的情况
+            k = other
+            ca = 2  # 系数的位置
+            boo_k = True
+        elif isinstance(self, Matrix) and isinstance(other, Matrix):
+            # 矩阵与矩阵相乘的情况
+            f_matrix = Matrix(len(self.mat[0]), len(self.mat))
+            for j in xrange(1, len(self.mat)+1):
+                for i in xrange(1, len(self.mat[0])+1):
+                    f_matrix.set_ij(i, j, self.get_ij(j, i) * other.get_ij(i, j))
+            return f_matrix
 
+        if boo_k:
+            # 这里进行系数与矩阵相乘
+            if ca == 1:
+                mat_t = other
+            elif ca == 2:
+                mat_t = self
+            else:
+                return -2
+
+            f_matrix = Matrix(len(mat_t.mat[0]), len(mat_t.mat))
+
+            for j in xrange(1, len(mat_t.mat)+1):
+                for i in xrange(1, len(mat_t.mat[0])+1):
+                    f_matrix.set_ij(i, j, mat_t.get_ij(i, j) * k)
+            return f_matrix
+        else:
+            # 无类型匹配，返回-3
+            return -3
+
+    '''
+    功能：矩阵第i行乘以k
+    参数：i:第i行，k：系数
+    返回值：处理之后的矩阵
+    PS：第ir(row)行mul(乘)k
+    '''
+    def ir_mul_k(self, i, k):
+        if i and i < self.mat:
+            for x in xrange(0, len(self.mat[0])):
+                self.mat[0][x] *= k
+        return self
 
 if __name__ == "__main__":
 
