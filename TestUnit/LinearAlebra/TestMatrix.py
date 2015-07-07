@@ -1,7 +1,7 @@
 __author__ = 'lienze'
 # encoding=utf-8
 
-from LinearAlgebra import Matrix as Mt  # Mt = Matrix Test
+from PyMathTool.LinearAlgebra import Matrix as Mt  # Mt = Matrix Test
 
 '''
 测试线性代数工具包中的矩阵包
