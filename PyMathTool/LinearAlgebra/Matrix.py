@@ -194,7 +194,7 @@ class Matrix:
 
     '''
     功能：获取矩阵行数与列数
-    参数：mat：矩阵变量
+    参数：无
     返回值：[m, n] list类型
     '''
     def get_mn(self):
@@ -221,16 +221,14 @@ class Matrix:
 
     '''
     功能：矩阵转置
-    参数：mat：矩阵变量
+    参数：无
     返回值：转置后的矩阵
     '''
     def convert_t(self):
         f_matrix = Matrix(len(self.mat[0]), len(self.mat))
-        # f_matrix = gen_zero_matrix(len(self.mat[0]), len(self.mat))
         for j in xrange(1, len(self.mat)+1):
             for i in xrange(1, len(self.mat[0])+1):
                 f_matrix.set_ij(i, j, self.get_ij(j, i))
-        # show_matrix(f_matrix)
         return f_matrix
 
 
