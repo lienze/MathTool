@@ -231,6 +231,19 @@ class Matrix:
                 f_matrix.set_ij(i, j, self.get_ij(j, i))
         return f_matrix
 
+    '''
+    功能：两个矩阵相乘
+    参数：other：另一个同阶矩阵
+    返回值：相乘后的矩阵
+    '''
+    def __mul__(self, other):
+        # 首先应该进行安全检查，此处先省略
+        f_matrix = Matrix(len(self.mat[0]), len(self.mat))
+        for j in xrange(1, len(self.mat)+1):
+            for i in xrange(1, len(self.mat[0])+1):
+                f_matrix.set_ij(i, j, self.get_ij(j, i) * other.get_ij(i,j))
+        return f_matrix
+
 
 if __name__ == "__main__":
 

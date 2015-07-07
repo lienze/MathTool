@@ -24,11 +24,27 @@ def test_convert_t():
     mat2 = mat1.convert_t()
     mat2.show_mat()
 
+def test_mul():
+    mat1 = Mt.Matrix(5, True)
+    for x in xrange(1, 6):
+        mat1.set_ij(1, x, x)
+    mat1.show_mat()
+    mat2 = Mt.Matrix(5, True)
+    for x in xrange(1, 6):
+        mat2.set_ij(x, 1, x)
+    mat2.show_mat()
+    mat3 = mat1 * mat2
+    mat3.show_mat()
+
 if __name__ == "__main__":
 
     # 测试矩阵加法
     # test_plus()
 
     # 测试矩阵转置
-    test_convert_t()
+    # test_convert_t()
+
+    # 测试矩阵乘法
+    test_mul()
+    pass
 
