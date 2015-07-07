@@ -45,7 +45,14 @@ def test_ir_mul_k():
     mat1.ir_mul_k(1, 2)
     mat1.show_mat()
 
+def test_init():
+    mat1 = Mt.Matrix([1, 2, 3], [2, 3, 4, 5])
+    mat1.show_mat()
+
 if __name__ == "__main__":
+
+    # 测试不定参数初始化矩阵
+    test_init()
 
     # 测试矩阵加法
     # test_plus()
@@ -54,7 +61,7 @@ if __name__ == "__main__":
     # test_convert_t()
 
     # 测试矩阵乘法
-    test_mul()
+    # test_mul()
 
     # 测试矩阵第i行乘以k
     # test_ir_mul_k()

@@ -5,13 +5,53 @@ __author__ = 'lienze'
 矩阵类
 '''
 class Matrix:
-    def __init__(self):
-        self.m = 0  # m行
-        self.n = 0  # n列
+    def __init__(self, *args):
+        # 首先构造矩阵基础属性
+        self.m = 0
+        self.n = 0
         self.mat = []
 
+        # 构造函数在这里分类
+        if len(args) == 2:
+            # 构造函数有两个参数的时候，需要分析类型
+            if isinstance(args[0], int) and isinstance(args[1], int):
+                self.init2(args[0], args[1])
+            elif isinstance(args[0], int) and isinstance(args[1], bool):
+                self.init3(args[0], args[1])
+            else:
+                self.init0(args)
+        else:
+            self.init0(args)
+
+    def init0(self, args):
+        # 首先检查类型
+        count = 0
+        max_list_len = 0
+        for x in xrange(0, len(args)):
+            # print args[x]
+            if isinstance(args[x], list):
+                count += 1
+                if max_list_len < len(args[x]):
+                    max_list_len = len(args[x])
+            else:
+                break
+
+        if count == len(args):
+            # 全部为元组类型
+            for i in args:
+                # list基本单元先对齐
+                if len(i) < max_list_len:
+                    c = max_list_len - len(i)
+                    while c > 0:
+                        i.append(0)
+                        c -= 1
+                # 之后再添加
+                self.mat.append(i)
+        else:
+            print u'初始化错误，list数量', count, u'参数数量', len(args)
+
     # 初始化为m*n矩阵
-    def __init__(self, m, n):
+    def init2(self, m, n):
         self.m = m
         self.n = n
         self.mat = []
@@ -22,7 +62,7 @@ class Matrix:
             self.mat.append(xl)
 
     # 初始化为n阶单位矩阵或矩阵
-    def __init__(self, n, b_zero=False):
+    def init3(self, n, b_zero=False):
         self.mat = []
         for j in xrange(1, n + 1):
             xl = []
