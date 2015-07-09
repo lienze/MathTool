@@ -12,7 +12,9 @@ class Matrix:
         self.mat = []
 
         # 构造函数在这里分类
-        if len(args) == 2:
+        if len(args) == 1:
+            self.init3(args[0])
+        elif len(args) == 2:
             # 构造函数有两个参数的时候，需要分析类型
             '''if isinstance(args[0], int) and isinstance(args[1], int):
                 self.init2(args[0], args[1])
@@ -91,8 +93,19 @@ class Matrix:
     返回值：相加后的矩阵(list)
     '''
     def __add__(self, other):
-        matrix_a = self.mat
-        matrix_b = other.mat
+        return self.add_or_sub(self, other, 1)
+
+    '''
+    功能：两个矩阵相减
+    参数：matrix_a:矩阵A matrix_b:矩阵B
+    返回值：相加后的矩阵(list)
+    '''
+    def __sub__(self, other):
+        return self.add_or_sub(self, other, 2)
+
+    def add_or_sub(self, self_t, other_t, sign):
+        matrix_a = self_t.mat
+        matrix_b = other_t.mat
         # 确保两个矩阵的行数相同
         if len(matrix_a) != len(matrix_b):
             return -1
@@ -114,8 +127,13 @@ class Matrix:
             if len(na) != 1 and len(nb) != 1:
                 return -2
 
-        # 之后进行两矩阵相加
-        self.mat = [[x0 + y0 for x0, y0 in zip(x, y)] for x, y in zip(matrix_a, matrix_b)]
+        # 之后进行两矩阵相加或相减
+        if sign == 1:
+            self.mat = [[x0 + y0 for x0, y0 in zip(x, y)] for x, y in zip(matrix_a, matrix_b)]
+        elif sign == 2:
+            self.mat = [[x0 - y0 for x0, y0 in zip(x, y)] for x, y in zip(matrix_a, matrix_b)]
+        else:
+            return -3
         return self
 
     '''

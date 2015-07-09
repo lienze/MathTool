@@ -12,7 +12,7 @@ def test_plus():
     # mat.show_mat()
     mat1 = Mt.Matrix(5)
     mat_r = mat + mat1
-    if not isinstance(mat_r, int):
+    if type(mat_r) is not int:
         mat_r.show_mat()
     else:
         print 'errno:', mat_r
@@ -62,13 +62,13 @@ def test_jc_mul_k():
 if __name__ == "__main__":
 
     # 测试矩阵第j行乘以k
-    test_jc_mul_k()
+    # test_jc_mul_k()
 
     # 测试不定参数初始化矩阵
     # test_init()
 
     # 测试矩阵加法
-    # test_plus()
+    test_plus()
 
     # 测试矩阵转置
     # test_convert_t()
