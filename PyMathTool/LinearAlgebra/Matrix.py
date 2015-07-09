@@ -14,9 +14,15 @@ class Matrix:
         # 构造函数在这里分类
         if len(args) == 2:
             # 构造函数有两个参数的时候，需要分析类型
-            if isinstance(args[0], int) and isinstance(args[1], int):
+            '''if isinstance(args[0], int) and isinstance(args[1], int):
                 self.init2(args[0], args[1])
             elif isinstance(args[0], int) and isinstance(args[1], bool):
+                self.init3(args[0], args[1])
+            else:
+                self.init0(args)'''
+            if type(args[0]) is int and type(args[1]) is int:
+                self.init2(args[0], args[1])
+            elif type(args[0]) is int and type(args[1]) is bool:
                 self.init3(args[0], args[1])
             else:
                 self.init0(args)
@@ -75,6 +81,7 @@ class Matrix:
 
     # 显示矩阵
     def show_mat(self):
+        print ''
         for m in self.mat:
             print m
 
@@ -206,7 +213,19 @@ class Matrix:
     def ir_mul_k(self, i, k):
         if i and i < self.mat:
             for x in xrange(0, len(self.mat[0])):
-                self.mat[0][x] *= k
+                self.mat[i-1][x] *= k
+        return self
+
+    '''
+    功能：矩阵第j列乘以k
+    参数：j：第j列，k：系数
+    返回值：处理之后的矩阵
+    PS：第jc(col)列mul(乘)k
+    '''
+    def jc_mul_k(self, j, k):
+        if j and j < self.mat[0]:
+            for x in xrange(0, len(self.mat)):
+                self.mat[x][j-1] *= k
         return self
 
 if __name__ == "__main__":

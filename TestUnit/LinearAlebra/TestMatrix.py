@@ -49,10 +49,23 @@ def test_init():
     mat1 = Mt.Matrix([1, 2, 3], [2, 3, 4, 5])
     mat1.show_mat()
 
+def test_jc_mul_k():
+    mat1 = Mt.Matrix(5, True)
+    mat1.show_mat()
+
+    for x in xrange(1, 6):
+        mat1.set_ij(1, x, x)
+    mat1.show_mat()
+    mat1.jc_mul_k(2, 4)
+    mat1.show_mat()
+
 if __name__ == "__main__":
 
+    # 测试矩阵第j行乘以k
+    test_jc_mul_k()
+
     # 测试不定参数初始化矩阵
-    test_init()
+    # test_init()
 
     # 测试矩阵加法
     # test_plus()
