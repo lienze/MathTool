@@ -75,4 +75,7 @@ class Det:
     def show_det(self):
         print ''
         for m in self.det:
-            print m
+            print '|',
+            for c in m:
+                print c,
+            print '|'
