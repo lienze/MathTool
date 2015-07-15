@@ -91,7 +91,10 @@ class Mat:
     def show_mat(self):
         print ''
         for m in self.mat:
-            print m
+            print '(',
+            for c in m:
+                print c,
+            print ')'
 
     '''
     功能：两个矩阵相加
