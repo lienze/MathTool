@@ -74,7 +74,21 @@ class Det:
 
     # 计算行列式的值
     def calc_det(self):
-        pass
+        # 化上三角
+        
+        # 最后进行对角线相乘，计算出行列式的值
+        ln = 0
+        tmp_sum = 0
+        for l in self.det:
+            if ln >= len(self.det):
+                break
+            if tmp_sum == 0:
+                tmp_sum = l[ln]
+            else:
+                tmp_sum *= l[ln]
+            ln += 1
+        else:
+            print tmp_sum
 
     # 显示行列式
     def show_det(self):
