@@ -240,7 +240,7 @@ class Mat:
     PS：第ir(row)行mul(乘)k
     '''
     def ir_mul_k(self, i, k):
-        if i and i < self.mat:
+        if i and i < len(self.mat):
             for x in xrange(0, len(self.mat[0])):
                 self.mat[i-1][x] *= k
         return self
@@ -252,7 +252,7 @@ class Mat:
     PS：第jc(col)列mul(乘)k
     '''
     def jc_mul_k(self, j, k):
-        if j and j < self.mat[0]:
+        if j and j < len(self.mat[0]):
             for x in xrange(0, len(self.mat)):
                 self.mat[x][j-1] *= k
         return self
