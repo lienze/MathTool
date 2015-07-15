@@ -88,3 +88,15 @@ class Det:
     # 显示行列式的值
     def show_val(self):
         print self.val
+
+    '''
+    功能：行列式的第i行乘以k加到第j行
+    参数：i:第i行，k：系数，j：第j行
+    返回值：处理之后的行列式
+    PS：第ir(row)行mul(乘)k加到jr(row)
+    '''
+    def ir_mul_k_add_jr(self, i, k, j):
+        if i and j and i <= len(self.det) and j <= len(self.det):
+            for x in xrange(0, len(self.det[0])):
+                self.det[j-1][x] = self.det[i-1][x] * k
+        return self
