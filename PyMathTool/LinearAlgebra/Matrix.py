@@ -45,14 +45,16 @@ class Mat:
                 break
 
         if count == len(args):
-            # 全部为元组类型
+            # 全部为list类型
             for i in args:
                 # list基本单元先对齐
                 if len(i) < max_list_len:
-                    c = max_list_len - len(i)
+                    '''c = max_list_len - len(i)
                     while c > 0:
                         i.append(0)
-                        c -= 1
+                        c -= 1'''
+                    # 这么改完, Pythonic 了许多
+                    i.extend([0 for _ in xrange(1, max_list_len - len(i) + 1)])
                 # 之后再添加
                 self.mat.append(i)
 
