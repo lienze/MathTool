@@ -4,7 +4,7 @@ __author__ = 'lienze'
 '''
 矩阵类
 '''
-class Matrix:
+class Mat:
     def __init__(self, *args):
         # 首先构造矩阵基础属性
         self.m = 0
@@ -55,6 +55,10 @@ class Matrix:
                         c -= 1
                 # 之后再添加
                 self.mat.append(i)
+
+            # 对象属性（行、列）初始化
+            self.m = len(self.mat)
+            self.n = len(self.mat[0])
         else:
             print u'初始化错误，list数量', count, u'参数数量', len(args)
 
@@ -80,6 +84,8 @@ class Matrix:
                 else:
                     xl.append(0)
             self.mat.append(xl)
+        self.m = n
+        self.n = n
 
     # 显示矩阵
     def show_mat(self):
@@ -169,7 +175,7 @@ class Matrix:
     返回值：转置后的矩阵
     '''
     def convert_t(self):
-        f_matrix = Matrix(len(self.mat[0]), len(self.mat))
+        f_matrix = Mat(len(self.mat[0]), len(self.mat))
         for j in xrange(1, len(self.mat)+1):
             for i in xrange(1, len(self.mat[0])+1):
                 f_matrix.set_ij(i, j, self.get_ij(j, i))
@@ -195,9 +201,9 @@ class Matrix:
             k = other
             ca = 2  # 系数的位置
             boo_k = True
-        elif isinstance(self, Matrix) and isinstance(other, Matrix):
+        elif isinstance(self, Mat) and isinstance(other, Mat):
             # 矩阵与矩阵相乘的情况
-            f_matrix = Matrix(len(self.mat[0]), len(self.mat))
+            f_matrix = Mat(len(self.mat[0]), len(self.mat))
             for j in xrange(1, len(self.mat)+1):
                 for i in xrange(1, len(self.mat[0])+1):
                     f_matrix.set_ij(i, j, self.get_ij(j, i) * other.get_ij(i, j))
@@ -212,7 +218,7 @@ class Matrix:
             else:
                 return -2
 
-            f_matrix = Matrix(len(mat_t.mat[0]), len(mat_t.mat))
+            f_matrix = Mat(len(mat_t.mat[0]), len(mat_t.mat))
 
             for j in xrange(1, len(mat_t.mat)+1):
                 for i in xrange(1, len(mat_t.mat[0])+1):
@@ -244,4 +250,14 @@ class Matrix:
         if j and j < self.mat[0]:
             for x in xrange(0, len(self.mat)):
                 self.mat[x][j-1] *= k
+        return self
+
+    '''
+    功能：计算矩阵的秩
+    参数：无
+    返回值：秩
+    '''
+    def get_rank(self):
+        # print self.m, self.n
+
         return self
